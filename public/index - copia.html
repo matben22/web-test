@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Menú Principal</title>
+  <!-- Bootstrap CSS -->
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  />
+  <!-- FontAwesome para iconos -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
+  <style>
+    /* Colores pasteles para feedback en el test */
+    .bg-pastel-green {
+      background-color: #a8e6cf !important;
+    }
+    .bg-pastel-red {
+      background-color: #ffaaa5 !important;
+    }
+
+    /* Estilos generales */
+    body {
+      background-color: #f8f9fa;
+    }
+    .menu-icon {
+      font-size: 3rem;
+    }
+    #mainMenu {
+      margin-top: 50px;
+    }
+
+    /* Notificación autoocultable */
+    #notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1050;
+      min-width: 200px;
+      display: none;
+    }
+
+    /* Opciones de respuesta en test */
+    #optionsContainer .option-item {
+      cursor: pointer;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+    #optionsContainer .option-item:hover {
+      background-color: #e9ecef;
+    }
+
+    /* Presentación para cada opción en Agregar Preguntas (en una línea) */
+    .answer-group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    .answer-group .form-control {
+      flex-grow: 1;
+    }
+    .answer-group > div {
+      margin-left: 0.5rem;
+      display: flex;
+      align-items: center;
+    }
+    .remove-answer {
+      border: none;
+      background: transparent;
+      font-size: 1rem;
+      color: #dc3545;
+      cursor: pointer;
+      margin-left: 0.5rem;
+    }
+
+    /* NUEVA INTERFAZ: Selección de Test: Tarjetas con colores vivos */
+    #selectTestInterface .card {
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    #selectTestInterface .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Colores específicos para cada tipo de test */
+    #testAleatorioBox {
+      background-color: #007bff;
+      color: #fff;
+    }
+    #testAleatorioBox .card-body {
+      color: #fff;
+    }
+    #testErroresBox {
+      background-color: #ffc107;
+      color: #212529;
+    }
+    #testErroresBox .card-body {
+      color: #212529;
+    }
+    #testPorTemaBox {
+      background-color: #17a2b8;
+      color: #fff;
+    }
+    #testPorTemaBox .card-body {
+      color: #fff;
+    }
+
+    /* Estilo para el listado de temas en test por tema */
+    #themeListDiv .list-group-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      margin-bottom: 5px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background-color: #fff;
+    }
+    #themeListDiv .list-group-item button {
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Notificación autoocultable -->
+  <div id="notification" class="alert alert-success" role="alert"></div>
+
+  <!-- MENÚ PRINCIPAL -->
+  <div id="mainMenu" class="container text-center">
+    <h1 class="mb-4">Test IA</h1>
+    <div class="row">
+      <div class="col-md-2 mb-3">
+        <button id="iconHacerTest" class="btn btn-outline-primary btn-block">
+          <i class="fas fa-edit menu-icon"></i><br />
+          Hacer Test
+        </button>
+      </div>
+	  <!-- NUEVO: Botón para Editar Preguntas -->
+      <div class="col-md-2 mb-3">
+        <button id="iconEditarPreguntas" class="btn btn-outline-warning btn-block">
+          <i class="fas fa-search menu-icon"></i><br />
+          Editar Preguntas
+        </button>
+      </div>
+      <!-- Botón para añadir PDF -->
+      <div class="col-md-2 mb-3">
+        <button id="iconAñadirPDF" class="btn btn-outline-info btn-block">
+          <i class="fas fa-file-pdf menu-icon"></i><br />
+          Añadir PDF
+        </button>
+      </div>
+      <div class="col-md-2 mb-3">
+        <button id="iconAgregarTest" class="btn btn-outline-success btn-block">
+          <i class="fas fa-plus-circle menu-icon"></i><br />
+          Agregar Preguntas
+        </button>
+      </div>
+      <div class="col-md-2 mb-3">
+        <button id="iconBorrarTema" class="btn btn-outline-danger btn-block">
+          <i class="fas fa-trash-alt menu-icon"></i><br />
+          Borrar Tema
+        </button>
+      </div>      
+    </div>
+  </div>
+
+  <!-- INTERFAZ: Selección de Test (Hacer Test) -->
+  <div id="selectTestInterface" class="container text-center" style="display: none">
+    <button id="backFromSelectTest" class="btn btn-secondary mt-3">
+      ← Volver al Menú
+    </button>
+    <h2 class="mt-4">Selecciona el tipo de Test</h2>
+    <div class="row mt-4">
+      <!-- Test Aleatorio -->
+      <div class="col-md-4 mb-3">
+        <div id="testAleatorioBox" class="card">
+          <div class="card-body">
+            <i class="fas fa-dice fa-3x"></i>
+            <h5 class="card-title mt-2">Test Aleatorio<br />(10 preguntas)</h5>
+          </div>
+        </div>
+      </div>
+      <!-- Test Errores -->
+      <div class="col-md-4 mb-3">
+        <div id="testErroresBox" class="card">
+          <div class="card-body">
+            <i class="fas fa-exclamation-triangle fa-3x"></i>
+            <h5 class="card-title mt-2">Test Errores<br />(30 preguntas)</h5>
+          </div>
+        </div>
+      </div>
+      <!-- Test por Temas -->
+      <div class="col-md-4 mb-3">
+        <div id="testPorTemaBox" class="card">
+          <div class="card-body">
+            <i class="fas fa-layer-group fa-3x"></i>
+            <h5 class="card-title mt-2">Tests por Temas</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Listado de temas para test por temas -->
+    <div id="themeListDiv" class="list-group mt-4" style="display: none"></div>
+  </div>
+
+  <!-- INTERFAZ: Test (presentación de preguntas y opciones) -->
+  <div id="testInterface" class="container" style="display: none">
+    <button id="backFromTestInterface" class="btn btn-secondary mt-3">
+      ← Volver al Menú
+    </button>
+    <div class="card mt-4">
+      <div class="card-header">
+        <h3>
+          Pregunta <span id="questionNumber"></span> de
+          <span id="totalQuestions"></span>
+        </h3>
+      </div>
+      <div class="card-body">
+        <p class="card-text" id="questionText" style="font-weight: bold"></p>
+        <div id="optionsContainer" class="list-group"></div>
+      </div>
+      <div class="card-footer text-right">
+        <button id="prevBtn" class="btn btn-secondary" disabled>
+          Anterior
+        </button>
+        <button id="nextBtn" class="btn btn-primary">Siguiente</button>
+        <!-- Botón para finalizar el test en cualquier momento -->
+        <button id="finishTestBtn" class="btn btn-danger ml-2">Finalizar Test</button>
+        <button id="submitBtn" class="btn btn-success" style="display: none">
+          Enviar Test
+        </button>
+      </div>
+    </div>
+    <div class="progress my-3">
+      <div
+        id="progressBar"
+        class="progress-bar"
+        role="progressbar"
+        style="width: 0%"
+      >
+        0%
+      </div>
+    </div>
+    <div id="testResult" class="alert alert-info" style="display: none"></div>
+    <!-- Opciones al finalizar un test -->
+    <div id="testOptions" class="text-center" style="display: none">
+      <button id="btnRepetirErroneas" class="btn btn-warning m-1">
+        Repetir Erróneas
+      </button>
+      <button id="btnNuevoTestAleatorio" class="btn btn-primary m-1">
+        Nuevo Test Aleatorio
+      </button>
+      <button id="btnNuevoTestPorTema" class="btn btn-info m-1">
+        Nuevo Test por Tema
+      </button>
+      <button id="btnVolverMenuDesdeTest" class="btn btn-secondary m-1">
+        Volver al Menú
+      </button>
+    </div>
+  </div>
+
+  <!-- INTERFAZ: Agregar Preguntas (Formulario para agregar preguntas) -->
+  <div id="agregarTestInterface" class="container" style="display: none">
+    <button id="backFromAgregar" class="btn btn-secondary mt-3">
+      ← Volver al Menú
+    </button>
+    <h2 class="mt-4">Agregar Preguntas</h2>
+    <form id="questionForm">
+      <!-- Campo oculto para edición -->
+      <input type="hidden" id="editQuestionId" />
+      <div class="form-group">
+        <label for="themeSelectAg">Tema:</label>
+        <select id="themeSelectAg" class="form-control">
+          <option value="nuevo">-- Nuevo Tema --</option>
+        </select>
+      </div>
+      <div class="form-group" id="newThemeDivAg" style="display: none">
+        <label for="newThemeInputAg">Nuevo Tema:</label>
+        <input
+          type="text"
+          id="newThemeInputAg"
+          class="form-control"
+          placeholder="Ingresa nuevo tema"
+        />
+      </div>
+      <div class="form-group">
+        <label for="questionAg">Pregunta:</label>
+        <textarea
+          id="questionAg"
+          rows="3"
+          class="form-control"
+          placeholder="Escribe la pregunta"
+          required
+        ></textarea>
+      </div>
+      <div id="answersContainerAg"></div>
+      <button type="button" id="addAnswerBtnAg" class="btn btn-secondary mb-2">
+        Añadir respuesta
+      </button>
+      <br />
+      <button type="submit" class="btn btn-primary">Guardar pregunta</button>
+      <button
+        type="button"
+        id="cancelEditBtn"
+        class="btn btn-secondary"
+        style="display: none"
+      >
+        Cancelar edición
+      </button>
+    </form>
+    <hr />
+    <h4>Preguntas existentes</h4>
+    <div id="preguntasExistentes" class="mt-3"></div>
+  </div>
+
+  <!-- INTERFAZ: Borrar Tema -->
+  <div id="borrarTemaInterface" class="container" style="display: none">
+    <button id="backFromBorrar" class="btn btn-secondary mt-3">
+      ← Volver al Menú
+    </button>
+    <h2 class="mt-4">Borrar Tema</h2>
+    <div class="form-group">
+      <label for="deleteThemeSelector">Seleccione tema a borrar:</label>
+      <select id="deleteThemeSelector" class="form-control"></select>
+    </div>
+    <button id="deleteThemeBtn" class="btn btn-danger">Borrar Tema</button>
+  </div>
+
+  <!-- INTERFAZ: Añadir PDF -->
+  <div id="añadirPDFInterface" class="container" style="display: none">
+    <button id="backFromPDF" class="btn btn-secondary mt-3">
+      ← Volver al Menú
+    </button>
+    <h2 class="mt-4">Cargar PDF con preguntas</h2>
+    <form id="pdfForm">
+      <div class="form-group">
+        <label for="pdfFile">Selecciona el archivo PDF:</label>
+        <input
+          type="file"
+          id="pdfFile"
+          class="form-control"
+          accept="application/pdf"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="pdfTheme">Nombre del tema:</label>
+        <input
+          type="text"
+          id="pdfTheme"
+          class="form-control"
+          placeholder="Ingresa el nombre del tema"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">Cargar PDF</button>
+    </form>
+    <div id="pdfFeedback" class="mt-3"></div>
+  </div>
+
+  <!-- NUEVA INTERFAZ: Editar Preguntas (búsqueda y edición rápida) -->
+  <div id="editarPreguntasInterface" class="container" style="display: none;">
+    <button id="backFromEditarPreguntas" class="btn btn-secondary mt-3">
+      ← Volver al Menú
+    </button>
+
+    <h2 class="mt-4">Editar Preguntas</h2>
+
+    <!-- Búsqueda -->
+    <div class="form-group">
+      <label for="searchInput">Busca por texto de la pregunta:</label>
+      <input
+        type="text"
+        id="searchInput"
+        class="form-control"
+        placeholder="Parte de la pregunta..."
+      />
+    </div>
+    <button id="searchBtn" class="btn btn-primary mb-3">Buscar</button>
+
+    <!-- Resultados de la búsqueda -->
+    <div id="searchResults" class="mb-4"></div>
+
+    <!-- Formulario para editar la pregunta seleccionada -->
+    <h4>Edición de Pregunta</h4>
+    <form id="editQuestionForm">
+      <!-- Guardará el ID de la pregunta a editar -->
+      <input type="hidden" id="editQuestionId2" />
+
+      <div class="form-group">
+        <label for="editThemeSelect">Tema:</label>
+        <select id="editThemeSelect" class="form-control"></select>
+      </div>
+
+      <div class="form-group">
+        <label for="editQuestionText">Pregunta:</label>
+        <textarea
+          id="editQuestionText"
+          rows="3"
+          class="form-control"
+        ></textarea>
+      </div>
+
+      <div id="editAnswersContainer"></div>
+
+      <button type="submit" class="btn btn-success mt-2">Guardar cambios</button>
+    </form>
+  </div>
+
+  <!-- Dependencias JS de Bootstrap y jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- Tu script principal -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Declarar todas las variables de elementos DOM al inicio
+      const mainMenu = document.getElementById("mainMenu");
+      const selectTestInterface = document.getElementById("selectTestInterface");
+      const testInterface = document.getElementById("testInterface");
+      const agregarTestInterface = document.getElementById("agregarTestInterface");
+      const borrarTemaInterface = document.getElementById("borrarTemaInterface");
+      const añadirPDFInterface = document.getElementById("añadirPDFInterface");
+      const editarPreguntasInterface = document.getElementById("editarPreguntasInterface");
+
+      const iconHacerTest = document.getElementById("iconHacerTest");
+      const iconAgregarTest = document.getElementById("iconAgregarTest");
+      const iconBorrarTema = document.getElementById("iconBorrarTema");
+      const iconAñadirPDF = document.getElementById("iconAñadirPDF");
+      const iconEditarPreguntas = document.getElementById("iconEditarPreguntas");
+
+      const backFromSelectTest = document.getElementById("backFromSelectTest");
+      const backFromTestInterface = document.getElementById("backFromTestInterface");
+      const backFromAgregar = document.getElementById("backFromAgregar");
+      const backFromBorrar = document.getElementById("backFromBorrar");
+      const backFromPDF = document.getElementById("backFromPDF");
+      const backFromEditarPreguntas = document.getElementById("backFromEditarPreguntas");
+
+      // Función para mostrar el menú principal y ocultar todas las interfaces
+      function showMainMenu() {
+        mainMenu.style.display = "block";
+        selectTestInterface.style.display = "none";
+        testInterface.style.display = "none";
+        agregarTestInterface.style.display = "none";
+        borrarTemaInterface.style.display = "none";
+        añadirPDFInterface.style.display = "none";
+        editarPreguntasInterface.style.display = "none";
+      }
+      // Llamar a showMainMenu() después de declarar todas las variables
+      showMainMenu();
+
+      iconHacerTest.addEventListener("click", function () {
+        mainMenu.style.display = "none";
+        selectTestInterface.style.display = "block";
+      });
+
+      iconAgregarTest.addEventListener("click", function () {
+        mainMenu.style.display = "none";
+        agregarTestInterface.style.display = "block";
+        if (themeSelectAg.value === "nuevo") {
+          newThemeDivAg.style.display = "block";
+        } else {
+          newThemeDivAg.style.display = "none";
+        }
+        prepararRespuestaDefault();
+      });
+
+      iconBorrarTema.addEventListener("click", function () {
+        mainMenu.style.display = "none";
+        borrarTemaInterface.style.display = "block";
+      });
+
+      iconAñadirPDF.addEventListener("click", function () {
+        mainMenu.style.display = "none";
+        añadirPDFInterface.style.display = "block";
+      });
+
+      iconEditarPreguntas.addEventListener("click", function () {
+        mainMenu.style.display = "none";
+        editarPreguntasInterface.style.display = "block";
+        loadThemesIntoEditSelect();
+      });
+
+      backFromSelectTest.addEventListener("click", showMainMenu);
+      backFromTestInterface.addEventListener("click", showMainMenu);
+      backFromAgregar.addEventListener("click", showMainMenu);
+      backFromBorrar.addEventListener("click", showMainMenu);
+      backFromPDF.addEventListener("click", showMainMenu);
+      backFromEditarPreguntas.addEventListener("click", showMainMenu);
+
+      /* --- Notificaciones --- */
+      const notification = document.getElementById("notification");
+      function showNotification(message, type = "success", duration = 3000) {
+        notification.textContent = message;
+        notification.className = `alert alert-${type}`;
+        notification.style.display = "block";
+        setTimeout(() => {
+          notification.style.display = "none";
+        }, duration);
+      }
+
+      /*
+       * Función para barajar un array
+       */
+      function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+      }
+
+      /*
+       * Función para barajar las opciones de cada pregunta, respetando la correcta
+       */
+      function shuffleOptionsInQuestions(questions) {
+        questions.forEach((q) => {
+          const pairs = q.options.map((texto, index) => ({
+            text: texto,
+            isCorrect: index === q.correct,
+          }));
+          shuffleArray(pairs);
+          q.options = pairs.map((p) => p.text);
+          q.correct = pairs.findIndex((p) => p.isCorrect);
+        });
+      }
+
+      /*
+       * Cargar y mostrar los temas en diferentes selectores
+       */
+      function loadThemes() {
+        fetch("/api/questions")
+          .then((response) => response.json())
+          .then((data) => {
+            const themeCountMap = {};
+            data.forEach((q) => {
+              if (!q.theme) return;
+              if (!themeCountMap[q.theme]) themeCountMap[q.theme] = 0;
+              themeCountMap[q.theme]++;
+            });
+
+            const themesArray = Object.keys(themeCountMap).sort();
+
+            // Para "Tests por temas"
+            const themeListDiv = document.getElementById("themeListDiv");
+            themeListDiv.style.display = "none";
+            themeListDiv.innerHTML = "";
+
+            themesArray.forEach((t) => {
+              const numPreg = themeCountMap[t];
+              const item = document.createElement("div");
+              item.className = "list-group-item";
+              item.innerHTML = `<span>${t} (${numPreg} preguntas)</span>`;
+
+              const btnIniciar = document.createElement("button");
+              btnIniciar.className = "btn btn-sm btn-info";
+              btnIniciar.textContent = "Iniciar test";
+              btnIniciar.addEventListener("click", function () {
+                fetch(`/api/questions?theme=${encodeURIComponent(t)}`)
+                  .then((res) => res.json())
+                  .then((data2) => {
+                    if (data2.length === 0) {
+                      showNotification(
+                        "No hay preguntas para el tema seleccionado.",
+                        "warning"
+                      );
+                      return;
+                    }
+                    shuffleArray(data2);
+                    testQuestions = data2;
+                    shuffleOptionsInQuestions(testQuestions);
+                    iniciarTest();
+                  })
+                  .catch((err) => console.error("Error al cargar:", err));
+              });
+              item.appendChild(btnIniciar);
+              themeListDiv.appendChild(item);
+            });
+
+            // Para la interfaz de borrar tema
+            const deleteThemeSelector = document.getElementById("deleteThemeSelector");
+            deleteThemeSelector.innerHTML = "";
+            themesArray.forEach((t) => {
+              const option = document.createElement("option");
+              option.value = t;
+              option.textContent = t;
+              deleteThemeSelector.appendChild(option);
+            });
+
+            // Para el select de "Agregar Preguntas"
+            const themeSelectAg = document.getElementById("themeSelectAg");
+            themeSelectAg.innerHTML =
+              '<option value="nuevo">-- Nuevo Tema --</option>';
+            themesArray.forEach((t) => {
+              const option = document.createElement("option");
+              option.value = t;
+              option.textContent = t;
+              themeSelectAg.appendChild(option);
+            });
+          })
+          .catch((err) => console.error("Error al cargar temas:", err));
+      }
+      loadThemes();
+
+      /* --- Agregar Preguntas --- */
+      const questionForm = document.getElementById("questionForm");
+      const answersContainerAg = document.getElementById("answersContainerAg");
+      const addAnswerBtnAg = document.getElementById("addAnswerBtnAg");
+      const themeSelectAg = document.getElementById("themeSelectAg");
+      const newThemeDivAg = document.getElementById("newThemeDivAg");
+      const newThemeInputAg = document.getElementById("newThemeInputAg");
+      const cancelEditBtn = document.getElementById("cancelEditBtn");
+      const preguntasDiv = document.getElementById("preguntasExistentes");
+
+      function prepararRespuestaDefault() {
+        answersContainerAg.innerHTML = "";
+        for (let i = 0; i < 4; i++) {
+          const answerDiv = document.createElement("div");
+          answerDiv.className = "form-group answer-group";
+          answerDiv.innerHTML = `
+            <input type="text" name="answer" class="form-control" placeholder="Opción de respuesta" required>
+            <div>
+              <input class="form-check-input" type="radio" name="correctAnswer" value="${i}" required>
+              <button type="button" class="remove-answer btn btn-sm btn-outline-danger"><i class="fas fa-times"></i></button>
+            </div>
+          `;
+          answersContainerAg.appendChild(answerDiv);
+        }
+        updateRadioValuesAg();
+      }
+
+      function updateRadioValuesAg() {
+        const answerDivs = answersContainerAg.getElementsByClassName("answer-group");
+        Array.from(answerDivs).forEach((div, index) => {
+          const radioInput = div.querySelector('input[type="radio"]');
+          radioInput.value = index;
+        });
+      }
+
+      addAnswerBtnAg.addEventListener("click", function () {
+        const answerDiv = document.createElement("div");
+        answerDiv.className = "form-group answer-group";
+        const answerIndex = answersContainerAg.children.length;
+        answerDiv.innerHTML = `
+          <input type="text" name="answer" class="form-control" placeholder="Opción de respuesta" required>
+          <div>
+            <input class="form-check-input" type="radio" name="correctAnswer" value="${answerIndex}" required>
+            <button type="button" class="remove-answer btn btn-sm btn-outline-danger"><i class="fas fa-times"></i></button>
+          </div>
+        `;
+        answersContainerAg.appendChild(answerDiv);
+        updateRadioValuesAg();
+      });
+
+      answersContainerAg.addEventListener("click", function (e) {
+        if (
+          e.target &&
+          (e.target.classList.contains("remove-answer") ||
+            e.target.closest(".remove-answer"))
+        ) {
+          if (answersContainerAg.children.length > 1) {
+            e.target.closest(".answer-group").remove();
+            updateRadioValuesAg();
+          } else {
+            showNotification("Debe existir al menos una opción.", "warning");
+          }
+        }
+      });
+
+      themeSelectAg.addEventListener("change", function () {
+        newThemeDivAg.style.display =
+          themeSelectAg.value === "nuevo" ? "block" : "none";
+        cargarPreguntasDelTemaActual();
+      });
+
+      cancelEditBtn.addEventListener("click", function () {
+        document.getElementById("editQuestionId").value = "";
+        document.getElementById("questionAg").value = "";
+        cancelEditBtn.style.display = "none";
+        document.querySelector('#questionForm button[type="submit"]').textContent =
+          "Guardar pregunta";
+        prepararRespuestaDefault();
+      });
+
+      function cargarPreguntasDelTemaActual() {
+        const temaSeleccionado =
+          themeSelectAg.value === "nuevo"
+            ? newThemeInputAg.value.trim()
+            : themeSelectAg.value;
+
+        preguntasDiv.innerHTML = "";
+        if (!temaSeleccionado) return;
+
+        fetch(`/api/questions?theme=${encodeURIComponent(temaSeleccionado)}`)
+          .then((res) => res.json())
+          .then((preguntas) => {
+            if (preguntas.length === 0) {
+              preguntasDiv.innerHTML = "<p>No hay preguntas para este tema.</p>";
+              return;
+            }
+            preguntasDiv.innerHTML = "";
+            preguntas.forEach((q) => {
+              const div = document.createElement("div");
+              div.className = "card mb-2";
+              div.innerHTML = `
+                <div class="card-body">
+                  <strong>Pregunta:</strong> ${q.question}<br>
+                  <strong>Respuestas:</strong>
+                  <ul>
+                    ${q.options
+                      .map(
+                        (opt, index) =>
+                          `<li ${
+                            index === q.correct ? 'style="font-weight:bold;"' : ""
+                          }>${opt}</li>`
+                      )
+                      .join("")}
+                  </ul>
+                  <button class="btn btn-sm btn-primary editar mt-2">Editar</button>
+                  <button class="btn btn-sm btn-danger borrar mt-2">Borrar</button>
+                </div>
+              `;
+              // Borrar
+              div.querySelector(".borrar").addEventListener("click", () => {
+                if (confirm("¿Seguro que quieres borrar esta pregunta?")) {
+                  fetch(`/api/questions/${q.id}`, { method: "DELETE" })
+                    .then((resp) => resp.json())
+                    .then((data) => {
+                      showNotification("Pregunta borrada.");
+                      cargarPreguntasDelTemaActual();
+                    })
+                    .catch((err) => {
+                      console.error("Error al borrar pregunta:", err);
+                      showNotification("Error al borrar la pregunta.", "danger");
+                    });
+                }
+              });
+              // Editar
+              div.querySelector(".editar").addEventListener("click", () => {
+                document.getElementById("questionAg").value = q.question;
+                document.getElementById("editQuestionId").value = q.id;
+                newThemeInputAg.value = "";
+                themeSelectAg.value = q.theme;
+                newThemeDivAg.style.display = "none";
+
+                // Subir scroll para ver el formulario
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                const submitBtn = document.querySelector(
+                  '#questionForm button[type="submit"]'
+                );
+                submitBtn.textContent = "Actualizar pregunta";
+                cancelEditBtn.style.display = "inline-block";
+
+                answersContainerAg.innerHTML = "";
+                q.options.forEach((opt, i) => {
+                  const answerDiv = document.createElement("div");
+                  answerDiv.className = "form-group answer-group";
+                  answerDiv.innerHTML = `
+                    <input type="text" name="answer" class="form-control" value="${opt}" required>
+                    <div>
+                      <input class="form-check-input" type="radio" name="correctAnswer" value="${i}" ${
+                    i === q.correct ? "checked" : ""
+                  } required>
+                      <button type="button" class="remove-answer btn btn-sm btn-outline-danger"><i class="fas fa-times"></i></button>
+                    </div>
+                  `;
+                  answersContainerAg.appendChild(answerDiv);
+                });
+                updateRadioValuesAg();
+              });
+              preguntasDiv.appendChild(div);
+            });
+          });
+      }
+
+      questionForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        let theme;
+        if (themeSelectAg.value === "nuevo") {
+          theme = newThemeInputAg.value.trim();
+          if (!theme) {
+            showNotification("Ingrese un nuevo tema.", "warning");
+            return;
+          }
+        } else {
+          theme = themeSelectAg.value;
+        }
+        const question = document.getElementById("questionAg").value.trim();
+        if (!question) return;
+
+        const answerInputs = answersContainerAg.querySelectorAll('input[name="answer"]');
+        const options = [];
+        answerInputs.forEach((input) => options.push(input.value.trim()));
+
+        const correctRadio = questionForm.querySelector(
+          'input[name="correctAnswer"]:checked'
+        );
+        const correct = correctRadio ? Number(correctRadio.value) : null;
+
+        const questionId = document.getElementById("editQuestionId").value;
+        const method = questionId ? "PUT" : "POST";
+        const endpoint = questionId ? `/api/questions/${questionId}` : "/api/questions";
+
+        fetch(endpoint, {
+          method: method,
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ theme, question, options, correct }),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              return response.json().then((data) => {
+                throw new Error(data.error || "Error en el servidor");
+              });
+            }
+            return response.json();
+          })
+          .then((data) => {
+            showNotification(
+              questionId
+                ? "Pregunta actualizada correctamente."
+                : "Pregunta guardada correctamente."
+            );
+            document.getElementById("questionAg").value = "";
+            prepararRespuestaDefault();
+            updateRadioValuesAg();
+            loadThemes();
+            cargarPreguntasDelTemaActual();
+
+            const submitBtn = document.querySelector(
+              '#questionForm button[type="submit"]'
+            );
+            submitBtn.textContent = "Guardar pregunta";
+            cancelEditBtn.style.display = "none";
+            document.getElementById("editQuestionId").value = "";
+          })
+          .catch((err) => {
+            console.error("Error al guardar:", err);
+            showNotification(
+              "Error al guardar la pregunta: " + err.message,
+              "danger"
+            );
+          });
+      });
+
+      /* --- Selección de Test (Hacer Test) --- */
+      const testAleatorioBox = document.getElementById("testAleatorioBox");
+      const testErroresBox = document.getElementById("testErroresBox");
+      const testPorTemaBox = document.getElementById("testPorTemaBox");
+      let testQuestions = [];
+
+      testAleatorioBox.addEventListener("click", function () {
+        fetch("/api/questions")
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.length === 0) {
+              showNotification("No hay preguntas para test global.", "warning");
+              return;
+            }
+            shuffleArray(data);
+            testQuestions = data.slice(0, Math.min(10, data.length));
+            shuffleOptionsInQuestions(testQuestions);
+            iniciarTest();
+          })
+          .catch((err) => console.error("Error al cargar:", err));
+      });
+
+      testErroresBox.addEventListener("click", function () {
+        fetch("/api/questions")
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.length === 0) {
+              showNotification("No hay preguntas disponibles.", "warning");
+              return;
+            }
+            data.forEach((q) => {
+              if (q.error_count === undefined) q.error_count = 0;
+            });
+            data.sort((a, b) => b.error_count - a.error_count);
+            testQuestions = data.slice(0, Math.min(30, data.length));
+            shuffleOptionsInQuestions(testQuestions);
+            iniciarTest();
+          })
+          .catch((err) => console.error("Error al cargar:", err));
+      });
+
+      testPorTemaBox.addEventListener("click", function () {
+        document.getElementById("themeListDiv").style.display = "block";
+      });
+
+      /* --- Interfaz de Test --- */
+      const questionNumber = document.getElementById("questionNumber");
+      const totalQuestions = document.getElementById("totalQuestions");
+      const questionText = document.getElementById("questionText");
+      const optionsContainer = document.getElementById("optionsContainer");
+      const progressBar = document.getElementById("progressBar");
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+      const submitBtn = document.getElementById("submitBtn");
+      const testResult = document.getElementById("testResult");
+      const testOptionsDiv = document.getElementById("testOptions");
+      const btnRepetirErroneas = document.getElementById("btnRepetirErroneas");
+      const btnNuevoTestAleatorio = document.getElementById("btnNuevoTestAleatorio");
+      const btnNuevoTestPorTema = document.getElementById("btnNuevoTestPorTema");
+      const btnVolverMenuDesdeTest = document.getElementById("btnVolverMenuDesdeTest");
+      let currentQuestionIndex = 0;
+      let userAnswers = [];
+
+      function iniciarTest() {
+        currentQuestionIndex = 0;
+        userAnswers = new Array(testQuestions.length).fill(null);
+        actualizarProgreso();
+        mostrarPregunta();
+        selectTestInterface.style.display = "none";
+        testInterface.style.display = "block";
+        testResult.style.display = "none";
+        testOptionsDiv.style.display = "none";
+      }
+
+      function actualizarProgreso() {
+        totalQuestions.textContent = testQuestions.length;
+        questionNumber.textContent = currentQuestionIndex + 1;
+        const porcentaje = Math.floor(
+          ((currentQuestionIndex + 1) / testQuestions.length) * 100
+        );
+        progressBar.style.width = porcentaje + "%";
+        progressBar.textContent = porcentaje + "%";
+      }
+
+      function mostrarPregunta() {
+        const q = testQuestions[currentQuestionIndex];
+        questionNumber.textContent = currentQuestionIndex + 1;
+        actualizarProgreso();
+
+        questionText.textContent = `${q.question}  (${q.theme})`;
+        optionsContainer.innerHTML = "";
+        q.options.forEach((opt, index) => {
+          const divOption = document.createElement("div");
+          divOption.className = "option-item list-group-item";
+          divOption.id = "optionContainer" + index;
+          divOption.textContent = opt;
+          divOption.addEventListener("click", function () {
+            // Deshabilitar opciones para evitar múltiples clics
+            const allOptions = optionsContainer.querySelectorAll(".option-item");
+            allOptions.forEach((item) => (item.style.pointerEvents = "none"));
+            let selectedValue = index;
+            userAnswers[currentQuestionIndex] = selectedValue;
+            if (selectedValue === q.correct) {
+              divOption.classList.add("bg-pastel-green", "text-white");
+            } else {
+              divOption.classList.add("bg-pastel-red", "text-white");
+              const correctOption = document.getElementById(
+                "optionContainer" + q.correct
+              );
+              if (correctOption) {
+                correctOption.classList.add("bg-pastel-green", "text-white");
+              }
+              // Incrementar contador de error
+              fetch(`/api/questions/${q.id}/error`, { method: "PATCH" }).catch(
+                (err) => console.error("Error al actualizar error_count:", err)
+              );
+            }
+          });
+          optionsContainer.appendChild(divOption);
+        });
+
+        prevBtn.disabled = currentQuestionIndex === 0;
+        if (currentQuestionIndex === testQuestions.length - 1) {
+          nextBtn.style.display = "none";
+          submitBtn.style.display = "inline-block";
+        } else {
+          nextBtn.style.display = "inline-block";
+          submitBtn.style.display = "none";
+        }
+      }
+
+      prevBtn.addEventListener("click", function () {
+        if (currentQuestionIndex > 0) {
+          currentQuestionIndex--;
+          mostrarPregunta();
+        }
+      });
+
+      nextBtn.addEventListener("click", function () {
+        if (currentQuestionIndex < testQuestions.length - 1) {
+          currentQuestionIndex++;
+          mostrarPregunta();
+        }
+      });
+
+      submitBtn.addEventListener("click", function () {
+        finalizarTest();
+      });
+
+      const finishTestBtn = document.getElementById("finishTestBtn");
+      finishTestBtn.addEventListener("click", function () {
+        if (confirm("¿Seguro que deseas finalizar el test ahora?")) {
+          finalizarTest();
+        }
+      });
+
+      function finalizarTest() {
+        let score = 0;
+        testQuestions.forEach((q, index) => {
+          if (userAnswers[index] === q.correct) {
+            score++;
+          }
+        });
+        testResult.innerHTML = `<h4>Obtuviste ${score} de ${testQuestions.length} respuestas correctas.</h4>`;
+        testResult.style.display = "block";
+        testOptionsDiv.style.display = "block";
+      }
+
+      btnRepetirErroneas.addEventListener("click", function () {
+        const wrongQuestions = testQuestions.filter(
+          (q, idx) => userAnswers[idx] !== q.correct
+        );
+        if (wrongQuestions.length === 0) {
+          showNotification("¡No hay preguntas erróneas para repetir!", "info");
+          return;
+        }
+        testQuestions = wrongQuestions;
+        iniciarTest();
+      });
+
+      btnNuevoTestAleatorio.addEventListener("click", function () {
+        fetch("/api/questions")
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.length === 0) {
+              showNotification("No hay preguntas para test global.", "warning");
+              return;
+            }
+            shuffleArray(data);
+            testQuestions = data.slice(0, Math.min(10, data.length));
+            shuffleOptionsInQuestions(testQuestions);
+            iniciarTest();
+          })
+          .catch((err) => console.error("Error al cargar:", err));
+      });
+
+      btnNuevoTestPorTema.addEventListener("click", function () {
+        testInterface.style.display = "none";
+        selectTestInterface.style.display = "block";
+      });
+
+      btnVolverMenuDesdeTest.addEventListener("click", function () {
+        testInterface.style.display = "none";
+        showMainMenu();
+      });
+
+// Funcionalidad Borrar Tema
+const deleteThemeBtn = document.getElementById("deleteThemeBtn");
+deleteThemeBtn.addEventListener("click", function () {
+  const deleteThemeSelector = document.getElementById("deleteThemeSelector");
+  const themeToDelete = deleteThemeSelector.value;
+  if (!themeToDelete) {
+    showNotification("Seleccione un tema para borrar.", "warning");
+    return;
+  }
+  // Pedir la clave antes de proceder
+  const clave = prompt("Ingrese la clave para borrar el tema:");
+  if (clave !== "7453") {
+    showNotification("Clave incorrecta.", "danger");
+    return;
+  }
+  if (
+    !confirm(
+      `¿Está seguro de borrar el tema "${themeToDelete}"? Esto eliminará todas sus preguntas.`
+    )
+  ) {
+    return;
+  }
+  fetch(`/api/themes?theme=${encodeURIComponent(themeToDelete)}`, {
+    method: "DELETE",
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      showNotification(data.message, "success");
+      loadThemes();
+    })
+    .catch((err) => {
+      console.error("Error al borrar tema:", err);
+      showNotification("Error al borrar tema.", "danger");
+    });
+});
+
+
+      /* --- Formulario PDF --- */
+      const pdfForm = document.getElementById("pdfForm");
+      const pdfFeedback = document.getElementById("pdfFeedback");
+      pdfForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const pdfFileInput = document.getElementById("pdfFile");
+        const pdfThemeInput = document.getElementById("pdfTheme");
+
+        if (pdfFileInput.files.length === 0) {
+          pdfFeedback.textContent = "Debes seleccionar un archivo PDF.";
+          return;
+        }
+
+        const formData = new FormData();
+        formData.append("pdfFile", pdfFileInput.files[0]);
+        formData.append("theme", pdfThemeInput.value.trim());
+
+        fetch("/api/pdf", {
+          method: "POST",
+          body: formData,
+        })
+          .then((resp) => resp.json())
+          .then((data) => {
+            if (data.error) {
+              pdfFeedback.textContent = "Error: " + data.error;
+            } else {
+              pdfFeedback.textContent =
+                data.message || "PDF procesado correctamente.";
+              loadThemes();
+            }
+          })
+          .catch((err) => {
+            console.error("Error al subir PDF:", err);
+            pdfFeedback.textContent = "Error al procesar el PDF.";
+          });
+      });
+
+      // =========================
+      // NUEVO: Lógica para Editar Preguntas (búsqueda rápida)
+      // =========================
+      const searchInput = document.getElementById("searchInput");
+      const searchBtn = document.getElementById("searchBtn");
+      const searchResults = document.getElementById("searchResults");
+
+      const editQuestionForm = document.getElementById("editQuestionForm");
+      const editQuestionId2 = document.getElementById("editQuestionId2");
+      const editThemeSelect = document.getElementById("editThemeSelect");
+      const editQuestionText = document.getElementById("editQuestionText");
+      const editAnswersContainer = document.getElementById("editAnswersContainer");
+
+      // Cargar temas en el <select> de edición
+      function loadThemesIntoEditSelect() {
+        fetch("/api/questions")
+          .then((res) => res.json())
+          .then((data) => {
+            const themes = new Set();
+            data.forEach((q) => {
+              if (q.theme) themes.add(q.theme);
+            });
+            editThemeSelect.innerHTML = "";
+            Array.from(themes).sort().forEach((t) => {
+              const option = document.createElement("option");
+              option.value = t;
+              option.textContent = t;
+              editThemeSelect.appendChild(option);
+            });
+          })
+          .catch((err) => console.error("Error al cargar temas:", err));
+      }
+
+      // Búsqueda de preguntas
+      searchBtn.addEventListener("click", () => {
+        const query = searchInput.value.trim();
+        if (!query) {
+          showNotification("Ingresa un texto para buscar.", "warning");
+          return;
+        }
+        fetch("/api/questions?search=" + encodeURIComponent(query))
+          .then((res) => res.json())
+          .then((data) => {
+            searchResults.innerHTML = "";
+            if (!data.length) {
+              searchResults.innerHTML = "<p>No se encontraron preguntas.</p>";
+              return;
+            }
+            data.forEach((q) => {
+              const card = document.createElement("div");
+              card.className = "card mb-2";
+              card.innerHTML = `
+                <div class="card-body">
+                  <h5 class="card-title">${q.question}</h5>
+                  <p class="card-text"><strong>Tema:</strong> ${q.theme}</p>
+                  <button class="btn btn-sm btn-info seleccionar">Editar</button>
+                </div>
+              `;
+              card.querySelector(".seleccionar").addEventListener("click", () => {
+                loadQuestionIntoForm(q);
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              });
+              searchResults.appendChild(card);
+            });
+          })
+          .catch((err) => {
+            console.error("Error al buscar preguntas:", err);
+            showNotification("Error al buscar preguntas.", "danger");
+          });
+      });
+
+      function loadQuestionIntoForm(q) {
+        editQuestionId2.value = q.id;
+        editQuestionText.value = q.question;
+        editThemeSelect.value = q.theme;
+
+        editAnswersContainer.innerHTML = "";
+        q.options.forEach((opt, index) => {
+          const answerDiv = document.createElement("div");
+          answerDiv.className = "form-group answer-group";
+          answerDiv.innerHTML = `
+            <input
+              type="text"
+              name="editAnswer"
+              class="form-control"
+              value="${opt}"
+              required
+            />
+            <div>
+              <input
+                class="form-check-input"
+                type="radio"
+                name="editCorrectAnswer"
+                value="${index}"
+                ${index === q.correct ? "checked" : ""}
+                required
+              />
+            </div>
+          `;
+          editAnswersContainer.appendChild(answerDiv);
+        });
+      }
+
+      editQuestionForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const questionId = editQuestionId2.value;
+        if (!questionId) {
+          showNotification("No hay pregunta seleccionada.", "warning");
+          return;
+        }
+
+        const updatedTheme = editThemeSelect.value;
+        const updatedQuestion = editQuestionText.value.trim();
+
+        const answerInputs = editAnswersContainer.querySelectorAll(
+          'input[name="editAnswer"]'
+        );
+        const options = [];
+        answerInputs.forEach((inp) => {
+          options.push(inp.value.trim());
+        });
+
+        const correctRadio = editQuestionForm.querySelector(
+          'input[name="editCorrectAnswer"]:checked'
+        );
+        const correct = correctRadio ? Number(correctRadio.value) : null;
+
+        fetch("/api/questions/" + questionId, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            theme: updatedTheme,
+            question: updatedQuestion,
+            options,
+            correct,
+          }),
+        })
+          .then((resp) => {
+            if (!resp.ok) {
+              return resp.json().then((data) => {
+                throw new Error(data.error || "Error al actualizar la pregunta");
+              });
+            }
+            return resp.json();
+          })
+          .then((result) => {
+            showNotification("Pregunta actualizada correctamente.");
+            // Opcional: refrescar la lista de resultados
+            // searchBtn.click();
+          })
+          .catch((err) => {
+            console.error("Error al actualizar pregunta:", err);
+            showNotification("Error al actualizar pregunta: " + err.message, "danger");
+          });
+      });
+    });
+  </script>
+</body>
+</html>

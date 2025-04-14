@@ -1,0 +1,482 @@
+Servidor corriendo en http://localhost:3000
+Base de datos abierta correctamente.
+Servidor corriendo en http://localhost:3000
+Base de datos abierta correctamente.
+Servidor corriendo en http://localhost:3000
+Base de datos abierta correctamente.
+Servidor corriendo en http://localhost:3000
+Base de datos abierta correctamente.
+Pregunta 64: error_count incrementado.
+Pregunta 20: error_count incrementado.
+Pregunta 48: error_count incrementado.
+Pregunta 60: error_count incrementado.
+Pregunta 59: error_count incrementado.
+Pregunta 33: error_count incrementado.
+Pregunta 25: error_count incrementado.
+Pregunta 62: error_count incrementado.
+Pregunta 54: error_count incrementado.
+Pregunta 26: error_count incrementado.
+Pregunta 36: error_count incrementado.
+Pregunta 56: error_count incrementado.
+Pregunta 13: error_count incrementado.
+Pregunta 37: error_count incrementado.
+Pregunta 45: error_count incrementado.
+Pregunta 23: error_count incrementado.
+Pregunta 31: error_count incrementado.
+Pregunta 34: error_count incrementado.
+Pregunta 44: error_count incrementado.
+Pregunta 46: error_count incrementado.
+Pregunta 53: error_count incrementado.
+Pregunta 57: error_count incrementado.
+Pregunta 50: error_count incrementado.
+Pregunta 66: error_count incrementado.
+Pregunta 13: error_count incrementado.
+Pregunta 56: error_count incrementado.
+Pregunta 49: error_count incrementado.
+Pregunta 62: error_count incrementado.
+Pregunta 60: error_count incrementado.
+Pregunta 18: error_count incrementado.
+Pregunta 35: error_count incrementado.
+Pregunta 58: error_count incrementado.
+Pregunta 57: error_count incrementado.
+Pregunta 26: error_count incrementado.
+Pregunta 60: error_count incrementado.
+Pregunta 18: error_count incrementado.
+Pregunta 35: error_count incrementado.
+Pregunta 57: error_count incrementado.
+Pregunta 60: error_count incrementado.
+Pregunta 18: error_count incrementado.
+Pregunta 35: error_count incrementado.
+Pregunta 57: error_count incrementado.
+Servidor corriendo en http://localhost:3000
+Base de datos abierta correctamente.
+Pregunta 61: error_count incrementado.
+Pregunta 55: error_count incrementado.
+Servidor corriendo en http://localhost:3000
+Base de datos abierta correctamente.
+Servidor corriendo en http://localhost:3000
+Base de datos abierta correctamente.
+Pregunta 48: error_count incrementado.
+Pregunta 39: error_count incrementado.
+Pregunta 17: error_count incrementado.
+Pregunta 54: error_count incrementado.
+Pregunta 64: error_count incrementado.
+Pregunta 26: error_count incrementado.
+Pregunta 38: error_count incrementado.
+Pregunta 15: error_count incrementado.
+Pregunta 59: error_count incrementado.
+Pregunta 57: error_count incrementado.
+Pregunta 34: error_count incrementado.
+Pregunta 52: error_count incrementado.
+Pregunta 59: error_count incrementado.
+Pregunta 15: error_count incrementado.
+Servidor corriendo en http://localhost:3000
+Base de datos abierta correctamente.
+Pregunta 73: error_count incrementado.
+Pregunta 56: error_count incrementado.
+Pregunta 77: error_count incrementado.
+Pregunta 31: error_count incrementado.
+Warning: TT: undefined function: 32
+Warning: TT: undefined function: 32
+Warning: TT: undefined function: 32
+Warning: TT: undefined function: 32
+PUT /api/questions/170 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿Cuál de las siguientes no es una categoría según el juego de instrucciones de la CPU',
+  options: [ 'SISD', 'SIMD', 'MSID', 'MIMD' ],
+  correct: 2
+}
+Pregunta con id 170 actualizada correctamente.
+Pregunta 146: error_count incrementado.
+Pregunta 151: error_count incrementado.
+Pregunta 25: error_count incrementado.
+PUT /api/questions/127 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿Cuál fue la principal diferencia entre la primera y la segunda generación de ordenadores',
+  options: [
+    'Uso personal de los ordenadores',
+    'Empleo de válvulas de vacío en la primera generación',
+    'Desarrollo de lenguajes de programación en la segunda generación',
+    'Apariencia y tamaño de los equipos'
+  ],
+  correct: 2
+}
+Pregunta con id 127 actualizada correctamente.
+PUT /api/questions/128 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿Qué implicó el desarrollo de los circuitos integrados en la tercera generación de ordenadores',
+  options: [
+    'Mayor tamaño de las computadoras',
+    'Necesidad de más energía',
+    'Computadoras más pequeñas y rápidas',
+    'Desprendimiento de más calor'
+  ],
+  correct: 2
+}
+Pregunta con id 128 actualizada correctamente.
+PUT /api/questions/131 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿Cuál fue el impacto del reemplazo de las memorias con núcleos magnéticos en la cuarta generación?',
+  options: [
+    'Mayor tamaño de las computadoras',
+    'Desarrollo de las computadoras personales (PC)',
+    'Necesidad de más energía',
+    'Mayor costo para las empresas'
+  ],
+  correct: 1
+}
+Pregunta con id 131 actualizada correctamente.
+PUT /api/questions/132 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿Qué avance permitió la creación de las computadoras personales (PC) en la cuarta generación?',
+  options: [
+    'Desarrollo de circuitos electrónicos',
+    'Uso de válvulas de vacío',
+    'Aparición de las primeras aplicaciones matemáticas',
+    'Nacimiento de la inteligencia artificial conversacional'
+  ],
+  correct: 0
+}
+Pregunta con id 132 actualizada correctamente.
+PUT /api/questions/133 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿Cuántos dígitos/símbolos utiliza el sistema binario para representar cantidades?',
+  options: [ '8', '10', '2', '16' ],
+  correct: 2
+}
+Pregunta con id 133 actualizada correctamente.
+PUT /api/questions/135 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿Cómo se denomina la unidad mínima de información que puede tomar valores de 0 y 1?',
+  options: [ 'Byte', 'Bit', 'Kilobyte', 'Nibble' ],
+  correct: 1
+}
+Pregunta con id 135 actualizada correctamente.
+PUT /api/questions/137 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿Cuál es la función de la tabla de múltiplos creada por IEEE para el sistema binario?',
+  options: [
+    'Representar cantidades en el sistema hexadecimal',
+    'Convertir entre sistemas de numeración',
+    'Establecer la base del sistema binario',
+    'Definir los valores de las letras en el sistema hexadecimal'
+  ],
+  correct: 1
+}
+Pregunta con id 137 actualizada correctamente.
+PUT /api/questions/144 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿Qué operador binario combina dos argumentos de forma que su resultado es 1 si alguno de los argumentos es uno?',
+  options: [
+    'Unión lógica (OR)',
+    'Producto lógico (AND)',
+    'OR exclusivo (XOR)',
+    'Negación lógica (NOT)'
+  ],
+  correct: 0
+}
+Pregunta con id 144 actualizada correctamente.
+PUT /api/questions/146 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿Qué sistema de codificación de caracteres fue desarrollado por ANSI y se basa en el alfabeto latino?',
+  options: [ 'ASCII', 'ISO 8859.1', 'EBCDIC', 'UNICODE' ],
+  correct: 0
+}
+Pregunta con id 146 actualizada correctamente.
+PUT /api/questions/148 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿Cuál es la unidad de información que utiliza 8 bits y puede contener letras, números o símbolos?',
+  options: [ 'Kilobyte', 'Nibble', 'Byte', 'Megabyte' ],
+  correct: 2
+}
+Pregunta con id 148 actualizada correctamente.
+PUT /api/questions/151 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿Qué medida se utiliza comúnmente para la transferencia de información en redes de comunicaciones?',
+  options: [
+    'Kilobits por segundo (Kbps)',
+    'Megabytes por segundo (MB/s)',
+    'Terabits por segundo (Tbps)',
+    'Gigabytes por segundo (GB/s)'
+  ],
+  correct: 0
+}
+Pregunta con id 151 actualizada correctamente.
+PUT /api/questions/152 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿Cuál es la función principal de un sistema de procesamiento de transacciones (TPS)?',
+  options: [
+    'Ayudar a los gerentes en la toma de decisiones estratégicas.',
+    'Automatizar tareas de oficina como procesamiento de texto.',
+    'Registrar y procesar transacciones comerciales diarias.',
+    'Integrar procesos de negocio en una única plataforma.'
+  ],
+  correct: 2
+}
+Pregunta con id 152 actualizada correctamente.
+PUT /api/questions/154 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿Cuál es la principal característica de un sistema de información que permite adaptarse a las necesidades cambiantes de una organización?',
+  options: [
+    'Seguridad',
+    'Integración',
+    'Persistencia y almacenamiento',
+    'Flexibilidad'
+  ],
+  correct: 3
+}
+Pregunta con id 154 actualizada correctamente.
+PUT /api/questions/158 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿Qué función de un sistema de información se encarga de supervisar y administrar el funcionamiento del sistema para asegurar su eficiencia?',
+  options: [
+    'Captura de Datos',
+    'Seguridad de Datos',
+    'Control y Gestión',
+    'Distribución'
+  ],
+  correct: 2
+}
+Pregunta con id 158 actualizada correctamente.
+PUT /api/questions/159 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿Cuál es la unidad básica de información en sistemas electrónicos que puede tomar los valores 0 y 1?',
+  options: [ 'Nibble', 'Byte', 'Bit', 'Kilobyte' ],
+  correct: 2
+}
+Pregunta con id 159 actualizada correctamente.
+PUT /api/questions/160 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿En qué década surgieron los Sistemas de Procesamiento de Transacciones (TPS) que registran y procesan transacciones comerciales diarias?',
+  options: [ '1960s', '1970s', '1980s', '1990s' ],
+  correct: 0
+}
+Pregunta con id 160 actualizada correctamente.
+PUT /api/questions/162 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿Cuál de las siguientes unidades de medida se utiliza comúnmente para expresar la capacidad de almacenamiento en sistemas informáticos?',
+  options: [ 'Hertz', 'Byte', 'Bit por segundo', 'Metro' ],
+  correct: 1
+}
+Pregunta con id 162 actualizada correctamente.
+PUT /api/questions/163 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿Qué sistema de codificación de caracteres utiliza 8 bits y es desarrollado por ISO (International Standards Organisation)?',
+  options: [ 'ASCII', 'EBCDIC', 'UNICODE', 'ISO 8859.1' ],
+  correct: 3
+}
+Pregunta con id 163 actualizada correctamente.
+PUT /api/questions/165 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿Cuál es el problema asociado a la arquitectura Von Neumann debido al uso de un bus común para datos e instrucciones?',
+  options: [
+    'Cuello de botella Harvard',
+    'Cuello de botella Von Neumann',
+    'Problema de la memoria dividida',
+    'Problema de la instrucción única'
+  ],
+  correct: 1
+}
+Pregunta con id 165 actualizada correctamente.
+PUT /api/questions/166 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿En qué se basa la arquitectura Harvard para mejorar el rendimiento del sistema?',
+  options: [
+    'Separación de memoria de datos e instrucciones',
+    'Uso de un bus común para datos e instrucciones',
+    'Compartir la caché para instrucciones y datos',
+    'División de la CPU en varias unidades de procesamiento'
+  ],
+  correct: 0
+}
+Pregunta con id 166 actualizada correctamente.
+PUT /api/questions/168 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿Cuáles son dos ejemplos de arquitecturas de ordenadores según la densidad y formato de las instrucciones?',
+  options: [
+    'CISC y RISC',
+    'SISD y SIMD',
+    'Multihilo y Superescalar',
+    'MISD y MIMD'
+  ],
+  correct: 0
+}
+Pregunta con id 168 actualizada correctamente.
+PUT /api/questions/174 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿Qué componente de la placa base almacena la configuración del BIOS y la hora del sistema?',
+  options: [ 'Northbridge', 'CMOS Battery', 'BIOS/UEFI Chip', 'Front Side Bus' ],
+  correct: 1
+}
+Pregunta con id 174 actualizada correctamente.
+PUT /api/questions/175 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿Qué conectores se utilizan para conectar dispositivos de almacenamiento como discos duros y SSD?',
+  options: [
+    'Conectores USB',
+    'Conectores de Ventiladores',
+    'Conectores SATA',
+    'Conectores de Audio y Red'
+  ],
+  correct: 2
+}
+Pregunta con id 175 actualizada correctamente.
+PUT /api/questions/196 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿Cuál es la función de los conectores de ventiladores en la placa base?',
+  options: [
+    'Conectar dispositivos USB',
+    'Conectar botones de encendido y reinicio',
+    'Permitir la conexión de ventiladores del sistema',
+    'Conectar tarjetas de expansión como tarjetas gráficas'
+  ],
+  correct: 2
+}
+Pregunta con id 196 actualizada correctamente.
+PUT /api/questions/186 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿Cuál es la función de los conectores de panel frontal en la placa base?',
+  options: [
+    'Conectar dispositivos USB',
+    'Conectar ventiladores del sistema',
+    'Conectar botones de encendido y reinicio',
+    'Conectar tarjetas de expansión como tarjetas gráficas'
+  ],
+  correct: 2
+}
+Pregunta con id 186 actualizada correctamente.
+PUT /api/questions/194 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿Cuál es la característica de la caché nivel 2 (L2)?',
+  options: [
+    'Es la caché más rápida y más costosa',
+    'Se usa para almacenar información recientemente visitada',
+    'Está en el núcleo de la CPU dividida entre datos e instrucciones',
+    'Es una memoria integrada en la placa base'
+  ],
+  correct: 1
+}
+Pregunta con id 194 actualizada correctamente.
+PUT /api/questions/195 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿Qué es el registro de estado (CCR) en la CPU?',
+  options: [
+    'Contiene la dirección de memoria de la siguiente instrucción a ejecutar',
+    'Almacena instrucciones en ejecución',
+    'Registra las condiciones de la operación anterior',
+    'Controla el flujo de instrucciones de la CPU'
+  ],
+  correct: 2
+}
+Pregunta con id 195 actualizada correctamente.
+PUT /api/questions/211 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿Cuál es la función del chipset en la placa base?',
+  options: [
+    'Gestionar la interfaz de la CPU con dispositivos externos',
+    'Alimentar los diferentes componentes de la placa base',
+    'Coordinar las operaciones de hardware y permitir que el sistema funcione de',
+    'Conectar dispositivos USB, como teclados y ratones'
+  ],
+  correct: 2
+}
+Pregunta con id 211 actualizada correctamente.
+PUT /api/questions/213 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿Qué indica el número de núcleos en una CPU?',
+  options: [
+    'La cantidad de bits con los que la ALU trabaja en paralelo',
+    'La cantidad de energía que consume la CPU',
+    'El número de microprocesadores en un circuito integrado',
+    'La capacidad de proceso de la ALU'
+  ],
+  correct: 2
+}
+Pregunta con id 213 actualizada correctamente.
+PUT /api/questions/212 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿Qué determina la gestión de memoria en una CPU?',
+  options: [
+    'La cantidad de energía que consume la CPU',
+    'El repertorio de instrucciones que puede ejecutar la ALU',
+    'La velocidad del procesador medida en MHz o GHz',
+    'Las características de la CPU'
+  ],
+  correct: 3
+}
+Pregunta con id 212 actualizada correctamente.
+Warning: TT: undefined function: 32
+Warning: TT: undefined function: 32
+Pregunta 243: error_count incrementado.
+PUT /api/questions/156 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 2a',
+  question: '¿Cuáles son las causas más frecuentes de pérdida de información en la transmisión de datos?',
+  options: [
+    'Atenuación, distorsión, interferencia, ruido.',
+    'Negación lógica, OR, AND, NOR.',
+    'Entradas, procesamiento, salidas, almacenamiento.',
+    'Almacenar grandes cantidades de información.'
+  ],
+  correct: 0
+}
+Pregunta con id 156 actualizada correctamente.
+Pregunta 219: error_count incrementado.
+Pregunta 176: error_count incrementado.
+PUT /api/questions/122 recibido con los siguientes datos: {
+  theme: 'Tema 21 Simulacro 1',
+  question: '¿Qué tipo de software es diseñado específicamente para satisfacer las necesidades de un cliente u organización en particular?',
+  options: [
+    'Software empaquetado',
+    'Software a medida',
+    'Software de código abierto',
+    'Software de sistema'
+  ],
+  correct: 1
+}
+Pregunta con id 122 actualizada correctamente.
+Servidor corriendo en http://localhost:3000
+Base de datos abierta correctamente.
+Servidor corriendo en http://localhost:3000
+Base de datos abierta correctamente.
+Pregunta 18: error_count incrementado.
+Pregunta 48: error_count incrementado.
+Pregunta 212: error_count incrementado.
+Pregunta 80: error_count incrementado.
+Pregunta 77: error_count incrementado.
+Pregunta 233: error_count incrementado.
+Servidor corriendo en http://localhost:3000
+Base de datos abierta correctamente.
+Pregunta 56: error_count incrementado.
+Pregunta 264: error_count incrementado.
+Pregunta 374: error_count incrementado.
+Pregunta 303: error_count incrementado.
+Pregunta 287: error_count incrementado.
+Pregunta 353: error_count incrementado.
+Pregunta 330: error_count incrementado.
+Pregunta 40: error_count incrementado.
+Pregunta 185: error_count incrementado.
+Pregunta 380: error_count incrementado.
+Pregunta 379: error_count incrementado.
+Pregunta 378: error_count incrementado.
+Pregunta 341: error_count incrementado.
+Pregunta 348: error_count incrementado.
+Pregunta 331: error_count incrementado.
+Pregunta 351: error_count incrementado.
+Pregunta 349: error_count incrementado.
+Pregunta 333: error_count incrementado.
+Pregunta 344: error_count incrementado.
+Pregunta 352: error_count incrementado.
+Pregunta 335: error_count incrementado.
+Pregunta 348: error_count incrementado.
+Pregunta 344: error_count incrementado.
+Servidor corriendo en http://localhost:3000
+Base de datos abierta correctamente.
+Pregunta 458: error_count incrementado.
+Pregunta 448: error_count incrementado.
+Pregunta 505: error_count incrementado.
+Pregunta 507: error_count incrementado.
+Pregunta 516: error_count incrementado.
+Pregunta 510: error_count incrementado.
+Pregunta 503: error_count incrementado.
+Pregunta 505: error_count incrementado.
+Pregunta 507: error_count incrementado.
